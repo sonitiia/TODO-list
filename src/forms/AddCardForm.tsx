@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { FormEvent, FunctionComponent, useState } from "react";
 
-const AddCardForm = ({ onCardAdd }) => {
+interface AddCardFormProps {
+	onCardAdd: (card: { title: string }) => any;
+}
+
+const AddCardForm: FunctionComponent<AddCardFormProps> = ({ onCardAdd }) => {
 	const [titleValue, setTitleValue] = useState("");
 
-	const handleSubmit = (e) => {
+	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
 
 		onCardAdd({

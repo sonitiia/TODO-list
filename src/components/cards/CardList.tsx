@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import Card, { CardType } from "./Card";
 import AddCardForm from "../../forms/AddCardForm";
-import dayjs from "dayjs";
 import EditCardForm from "../../forms/EditCardForm";
+import dayjs from "dayjs";
 
-const CardList = () => {
+const CardList: FunctionComponent = () => {
 	const [cards, setCards] = useState<CardType[]>([]);
 
 	useEffect(() => {
@@ -14,18 +14,16 @@ const CardList = () => {
 		}
 	}, []);
 
-	const onCardAdd = (card: CardType) => {
+	const onCardAdd = (card: { title: string }) => {
 		setCards((prevCards) => {
-			const newCards = [
-				...prevCards,
-				{
-					...card,
-					id: Date.now(),
-					date: dayjs().format("D MMM HH:mm"),
-					completed: false,
-					isEditing: false,
-				},
-			];
+			const newCard: CardType = {
+				...card,
+				id: Date.now(),
+				date: dayjs().format("D MMM HH:mm"),
+				completed: false,
+				isEditing: false,
+			};
+			const newCards = [...prevCards, newCard];
 			localStorage.setItem("cards", JSON.stringify(newCards));
 			return newCards;
 		});

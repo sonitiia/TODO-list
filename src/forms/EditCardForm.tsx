@@ -1,9 +1,17 @@
-import { useState } from "react";
+import { FormEvent, FunctionComponent, useState } from "react";
 
-const EditCardForm = ({ editCard, card }) => {
+interface EditCardFormProps {
+	editCard: (data: { title: string }, id: number) => void;
+	card: { title: string; id: number };
+}
+
+const EditCardForm: FunctionComponent<EditCardFormProps> = ({
+	editCard,
+	card,
+}) => {
 	const [titleValue, setTitleValue] = useState(card.title);
 
-	const handleSubmit = (e) => {
+	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
 
 		editCard(
